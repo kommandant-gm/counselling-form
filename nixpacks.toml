@@ -1,6 +1,4 @@
-# Update nixpacks.toml with correct configuration
-@"
-[phases.install]
+﻿[phases.install]
 cmds = [
     'mkdir -p /var/log/nginx && mkdir -p /var/cache/nginx',
     'mkdir -p bootstrap/cache',
@@ -12,4 +10,3 @@ cmds = []
 
 [start]
 cmd = 'php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}'
-"@ | Out-File -FilePath nixpacks.toml -Encoding UTF8 -NoNewline
