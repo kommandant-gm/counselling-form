@@ -33,7 +33,7 @@ class Booking extends Model
      */
     public static function getBookedSlots(string $date): array
     {
-        return self::where('date', $date)
+        return self::whereDate('date', $date)
             ->pluck('time_slot')
             ->toArray();
     }
