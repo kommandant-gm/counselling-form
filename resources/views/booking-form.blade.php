@@ -232,7 +232,7 @@
             <!-- Header -->
             <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-10 sm:px-12 sm:py-12">
                 <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
-                    Counselling Session
+                   Dayang Counselling Session
                 </h1>
                 <p class="text-indigo-100 text-lg">
                     Late Attendance Registration
