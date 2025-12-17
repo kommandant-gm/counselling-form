@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ['php82', 'nginx', 'libmysqlclient', 'composer', 'nodejs_18', 'npm-9_x']
+
+[phases.install]
+cmds = [
+    'mkdir -p /var/log/nginx && mkdir -p /var/cache/nginx',
+    'mkdir -p bootstrap/cache',
+    'composer install --ignore-platform-reqs --no-dev --optimize-autoloader'
+]
+
+[phases.build]
+cmds = []
+
+[start]
+cmd = 'php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}'
