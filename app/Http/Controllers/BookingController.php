@@ -144,14 +144,17 @@ class BookingController extends Controller
             return back()->withErrors(['password' => 'Invalid password']);
         }
 
-        $bookings = Booking::orderBy('date')
+        $availableDates = array_keys(Booking::getAvailableDates());
+
+        $bookings = Booking::whereIn('date', $availableDates)
+            ->orderBy('date')
             ->orderBy('time_slot')
             ->get()
             ->groupBy(function ($booking) {
                 return $booking->date->format('Y-m-d');
             });
 
-        $totalBookings = Booking::count();
+        $totalBookings = Booking::getTotalBookings();
         $totalSlots = Booking::getTotalSlots();
         $remainingSlots = max($totalSlots - $totalBookings, 0);
 

@@ -54,7 +54,9 @@ class Booking extends Model
      */
     public static function getTotalBookings(): int
     {
-        return self::count();
+        $dates = array_keys(self::getAvailableDates());
+
+        return self::whereIn('date', $dates)->count();
     }
 
     /**
