@@ -67,6 +67,6 @@ class Booking extends Model
 
     private static function getDefaultSlots(): array
     {
-        return ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+        return ['09:00', '10:00', '11:00', '14:00'];
     }
 }
