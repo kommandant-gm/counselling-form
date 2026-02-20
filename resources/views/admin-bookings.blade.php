@@ -113,7 +113,7 @@
                             </div>
                             <div class="ml-4">
                                 <p class="text-sm font-medium text-gray-600">Capacity</p>
-                                <p class="text-2xl font-bold text-gray-900">{{ number_format(($totalBookings / 18) * 100, 1) }}%</p>
+                                <p class="text-2xl font-bold text-gray-900">{{ number_format(($totalBookings / $totalSlots) * 100, 1) }}%</p>
                             </div>
                         </div>
                     </div>

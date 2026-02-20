@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class BookingController extends Controller
@@ -20,9 +21,10 @@ class BookingController extends Controller
 
         $availableDates = Booking::getAvailableDates();
         $totalBookings = Booking::getTotalBookings();
-        $remainingSlots = 18 - $totalBookings;
+        $totalSlots = Booking::getTotalSlots();
+        $remainingSlots = max($totalSlots - $totalBookings, 0);
 
-        return view('booking-form', compact('availableDates', 'remainingSlots'));
+        return view('booking-form', compact('availableDates', 'remainingSlots', 'totalSlots'));
     }
 
     /**
@@ -31,7 +33,7 @@ class BookingController extends Controller
     public function getAvailableSlots(Request $request)
     {
         $request->validate([
-            'date' => 'required|date|in:2025-12-19,2025-12-22,2025-12-23',
+            'date' => ['required', 'date', Rule::in(array_keys(Booking::getAvailableDates()))],
         ]);
 
         $allSlots = Booking::getAvailableDates()[$request->date] ?? [];
@@ -63,7 +65,7 @@ class BookingController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'date' => 'required|date|in:2025-12-19,2025-12-22,2025-12-23',
+            'date' => ['required', 'date', Rule::in(array_keys(Booking::getAvailableDates()))],
             'time_slot' => 'required|string',
         ]);
 
@@ -86,7 +88,7 @@ class BookingController extends Controller
             }
 
             // Check if we've reached the maximum bookings
-            if (Booking::count() >= 18) {
+            if (Booking::count() >= Booking::getTotalSlots()) {
                 DB::rollBack();
                 return response()->json([
                     'success' => false,
@@ -150,8 +152,9 @@ class BookingController extends Controller
             });
 
         $totalBookings = Booking::count();
-        $remainingSlots = 18 - $totalBookings;
+        $totalSlots = Booking::getTotalSlots();
+        $remainingSlots = max($totalSlots - $totalBookings, 0);
 
-        return view('admin-bookings', compact('bookings', 'totalBookings', 'remainingSlots'));
+        return view('admin-bookings', compact('bookings', 'totalBookings', 'remainingSlots', 'totalSlots'));
     }
 }

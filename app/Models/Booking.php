@@ -21,10 +21,13 @@ class Booking extends Model
      */
     public static function getAvailableDates(): array
     {
+        $slots = self::getDefaultSlots();
+
         return [
-            '2025-12-19' => ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'],
-            '2025-12-22' => ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'],
-            '2025-12-23' => ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'],
+            '2026-02-23' => $slots,
+            '2026-02-24' => $slots,
+            '2026-02-25' => $slots,
+            '2026-02-26' => $slots,
         ];
     }
 
@@ -43,7 +46,7 @@ class Booking extends Model
      */
     public static function isRegistrationOpen(): bool
     {
-        return now()->lt('2025-12-24');
+        return now()->lt('2026-02-27');
     }
 
     /**
@@ -52,5 +55,18 @@ class Booking extends Model
     public static function getTotalBookings(): int
     {
         return self::count();
+    }
+
+    /**
+     * Get total available slots across all dates
+     */
+    public static function getTotalSlots(): int
+    {
+        return array_sum(array_map('count', self::getAvailableDates()));
+    }
+
+    private static function getDefaultSlots(): array
+    {
+        return ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
     }
 }
