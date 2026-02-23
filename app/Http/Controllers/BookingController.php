@@ -87,8 +87,8 @@ class BookingController extends Controller
                 ], 422);
             }
 
-            // Check if we've reached the maximum bookings
-            if (Booking::count() >= Booking::getTotalSlots()) {
+            // Check if we've reached the maximum bookings for the active dates
+            if (Booking::getTotalBookings() >= Booking::getTotalSlots()) {
                 DB::rollBack();
                 return response()->json([
                     'success' => false,
