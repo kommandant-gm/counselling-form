@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Booking extends Model
 {
@@ -17,6 +18,33 @@ class Booking extends Model
     ];
 
     /**
+     * Keep production booking data aligned with the active schedule.
+     */
+    public static function syncProductionSlots(): void
+    {
+        if (!app()->environment('production')) {
+            return;
+        }
+
+        // Always remove historical bookings from past dates.
+        self::whereDate('date', '<', now()->toDateString())->delete();
+
+        // Reset once when the configured schedule changes after deployment.
+        $currentScheduleHash = md5(json_encode(self::getAvailableDates()));
+        $markerPath = storage_path('app/booking-schedule-hash.txt');
+        $lastScheduleHash = File::exists($markerPath)
+            ? trim((string) File::get($markerPath))
+            : null;
+
+        if ($lastScheduleHash !== $currentScheduleHash) {
+            self::query()->delete();
+
+            File::ensureDirectoryExists(dirname($markerPath));
+            File::put($markerPath, $currentScheduleHash);
+        }
+    }
+
+    /**
      * Get all available dates with their time slots
      */
     public static function getAvailableDates(): array
@@ -24,10 +52,9 @@ class Booking extends Model
         $slots = self::getDefaultSlots();
 
         return [
-            '2026-02-23' => $slots,
-            '2026-02-24' => $slots,
-            '2026-02-25' => $slots,
-            '2026-02-26' => $slots,
+            '2026-04-14' => $slots,
+            '2026-04-15' => $slots,
+            '2026-04-16' => $slots,
         ];
     }
 
@@ -46,7 +73,7 @@ class Booking extends Model
      */
     public static function isRegistrationOpen(): bool
     {
-        return now()->lt('2026-02-27');
+        return now()->lt('2026-04-17');
     }
 
     /**
@@ -69,6 +96,6 @@ class Booking extends Model
 
     private static function getDefaultSlots(): array
     {
-        return ['09:00', '10:00', '11:00', '14:00'];
+        return ['09:00', '10:00', '11:00', '14:30'];
     }
 }

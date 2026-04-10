@@ -10,6 +10,11 @@ use Illuminate\Validation\ValidationException;
 
 class BookingController extends Controller
 {
+    public function __construct()
+    {
+        Booking::syncProductionSlots();
+    }
+
     /**
      * Show the booking form
      */
