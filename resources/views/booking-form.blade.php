@@ -237,6 +237,18 @@
                 <p class="text-indigo-100 text-lg">
                     Late Attendance Registration
                 </p>
+
+                <div class="mt-4 rounded-2xl bg-white/15 px-5 py-4 backdrop-blur-sm">
+                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-100">
+                        Active Schedule
+                    </p>
+                    <p class="mt-2 text-white">
+                        19 May 2026 and 20 May 2026
+                    </p>
+                    <p class="mt-1 text-sm text-indigo-100">
+                        9:00 AM, 10:00 AM, 11:00 AM, 12:00 PM
+                    </p>
+                </div>
                 
                 <div class="mt-6 inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full">
                     <svg class="w-5 h-5 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
