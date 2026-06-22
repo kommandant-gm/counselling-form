@@ -243,7 +243,7 @@
                         Active Schedule
                     </p>
                     <p class="mt-2 text-white">
-                        19 May 2026 and 20 May 2026
+                        23 June 2026, 25 June 2026, and 26 June 2026
                     </p>
                     <p class="mt-1 text-sm text-indigo-100">
                         9:00 AM, 10:00 AM, 11:00 AM, 12:00 PM
