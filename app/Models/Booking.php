@@ -52,9 +52,9 @@ class Booking extends Model
         $slots = self::getDefaultSlots();
 
         return [
-            '2026-06-23' => $slots,
-            '2026-06-25' => $slots,
-            '2026-06-26' => $slots,
+            '2026-08-21' => $slots,
+            '2026-08-26' => $slots,
+            '2026-08-28' => $slots,
         ];
     }
 
@@ -73,7 +73,7 @@ class Booking extends Model
      */
     public static function isRegistrationOpen(): bool
     {
-        return now()->lt('2026-06-27');
+        return now()->lt('2026-08-29');
     }
 
     /**
