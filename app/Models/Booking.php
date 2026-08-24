@@ -49,12 +49,10 @@ class Booking extends Model
      */
     public static function getAvailableDates(): array
     {
-        $slots = self::getDefaultSlots();
-
         return [
-            '2026-08-21' => $slots,
-            '2026-08-26' => $slots,
-            '2026-08-28' => $slots,
+            '2026-08-24' => self::getSlots('09:00', '14:30'),
+            '2026-08-27' => self::getSlots('09:00', '14:30'),
+            '2026-08-28' => self::getSlots('09:00', '12:00'),
         ];
     }
 
@@ -94,8 +92,17 @@ class Booking extends Model
         return array_sum(array_map('count', self::getAvailableDates()));
     }
 
-    private static function getDefaultSlots(): array
+    private static function getSlots(string $start, string $end): array
     {
-        return ['09:00', '10:00', '11:00', '12:00'];
+        $slots = [];
+        $current = strtotime($start);
+        $last = strtotime($end);
+
+        while ($current <= $last) {
+            $slots[] = date('H:i', $current);
+            $current = strtotime('+30 minutes', $current);
+        }
+
+        return $slots;
     }
 }

@@ -243,10 +243,10 @@
                         Active Schedule
                     </p>
                     <p class="mt-2 text-white">
-                        23 June 2026, 25 June 2026, and 26 June 2026
+                        24 August 2026, 27 August 2026, and 28 August 2026
                     </p>
                     <p class="mt-1 text-sm text-indigo-100">
-                        9:00 AM, 10:00 AM, 11:00 AM, 12:00 PM
+                        24 &amp; 27 Aug: 9:00 AM – 2:30 PM · 28 Aug: 9:00 AM – 12:00 PM
                     </p>
                 </div>
                 
